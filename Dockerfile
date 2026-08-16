@@ -1,5 +1,40 @@
-FROM nginx:alpine
+# Stage 1: Production Docker image
+FROM nginx:alpine AS production
 
-COPY app/ /usr/share/nginx/html
+# Set working directory
+WORKDIR /usr/share/nginx/html
 
-EXPOSE 80
+# Remove default nginx static assets
+RUN rm -rf ./*
+
+# Install curl for health checks
+RUN apk add --no-cache curl
+
+# Create non-root user, configure permissions, and create PID file in a single layer
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -u 1001 -S appuser -G appgroup && \
+    touch /var/run/nginx.pid && \
+    mkdir -p /var/cache/nginx /var/log/nginx && \
+    chown -R appuser:appgroup /usr/share/nginx/html \
+                              /etc/nginx/conf.d \
+                              /var/cache/nginx \
+                              /var/log/nginx \
+                              /var/run/nginx.pid \
+                              /var/run \
+                              /tmp
+
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy application files
+COPY --chown=appuser:appgroup app/ /usr/share/nginx/html
+
+# Expose target application port
+EXPOSE 8080
+
+# Configure health check against port 8080
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/health || exit 1
+
+# Start Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
