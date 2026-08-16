@@ -12,16 +12,16 @@ This project demonstrates core DevOps practices, including Docker containerizati
 
 ⚡ Quick Start
 
-1.Build and start the container stack:
+1. Build and start the container stack:
 - docker compose up -d --build
 
-2.Verify container health and status:
+2. Verify container health and status:
 - docker compose ps
 
-3.Check logs to confirm clean startup
+3. Check logs to confirm clean startup
 - docker compose logs -f
 
-4.Access the application:
+4. Access the application:
 Open your browser and navigate to http://localhost:8080
 
 5.Stop the environment:
@@ -31,8 +31,8 @@ Open your browser and navigate to http://localhost:8080
 
 To verify that security headers, health endpoints, and caching policies are operating correctly inside the running container, execute the following commands:
 
-# 1. Test the Healthcheck Endpoint (Should return HTTP 200 OK with 'healthy')
+1. Test the Healthcheck Endpoint (Should return HTTP 200 OK with 'healthy')
 curl -i http://localhost:8080/health
 
-# 2. Inspect Security Headers on the Main Page
+2. Inspect Security Headers on the Main Page
 curl -I http://localhost:8080/
