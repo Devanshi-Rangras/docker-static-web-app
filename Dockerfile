@@ -24,7 +24,7 @@ RUN addgroup -g 1001 -S appgroup && \
                               /tmp
 
 # Copy custom Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy application files
 COPY --chown=appuser:appgroup app/ /usr/share/nginx/html
