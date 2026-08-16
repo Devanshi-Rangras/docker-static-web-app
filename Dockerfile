@@ -14,12 +14,12 @@ RUN apk add --no-cache curl
 RUN addgroup -g 1001 -S appgroup && \
     adduser -u 1001 -S appuser -G appgroup && \
     touch /var/run/nginx.pid && \
-    mkdir -p /var/cache/nginx /var/log/nginx && \
+    mkdir -p /var/cache/nginx /var/log/nginx /var/run/nginx /tmp && \
     chown -R appuser:appgroup /usr/share/nginx/html \
-                              /etc/nginx/conf.d \
+                              /etc/nginx \
                               /var/cache/nginx \
                               /var/log/nginx \
-                              /var/run/nginx.pid \
+                              /var/run/nginx \
                               /var/run \
                               /tmp
 
