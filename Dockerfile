@@ -23,7 +23,7 @@ RUN addgroup -g 1001 -S appgroup && \
                               /var/run \
                               /tmp
 
-# Copy custom Nginx configuration
+# Copy Nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy application files
