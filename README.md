@@ -32,7 +32,7 @@ Open your browser and navigate to http://localhost:8080
 To verify that security headers, health endpoints, and caching policies are operating correctly inside the running container, execute the following commands:
 
 1. Test the Healthcheck Endpoint (Should return HTTP 200 OK with 'healthy')
-curl -i http://localhost:8080/health
+- curl -i http://localhost:8080/health
 
 2. Inspect Security Headers on the Main Page
-curl -I http://localhost:8080/
+- curl -I http://localhost:8080/
